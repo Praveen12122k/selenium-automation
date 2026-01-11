@@ -26,6 +26,7 @@ public class LoginSteps {
     public void validLogin(String username, String password) {
         loginPage.enterusername(username);
         loginPage.enterpassword(password);
+        System.out.println("Successfully Entered Credentials");
     }
     @And("Click on login button")
     public void clikcbtn(){loginPage.Clickloginbtn();}
