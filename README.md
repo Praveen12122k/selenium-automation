@@ -1,158 +1,93 @@
-# Selenium Login Automation Framework
+# Selenium Login Automation Framework with Cucumber
 
-This repository contains a **Selenium WebDriver automation framework** built using **Java, Maven, and TestNG** following the **Page Object Model (POM)** design pattern. The framework automates login functionality for the sample application:
+This repository contains a **Selenium WebDriver automation framework** built using **Java, Maven, and Cucumber** following the **Page Object Model (POM)** design pattern. The framework automates login functionality for the sample application:
 
 🔗 [https://the-internet.herokuapp.com/login](https://the-internet.herokuapp.com/login)
 
 ---
-
 ## 🛠️ Tech Stack
 
-* **Language:** Java 21
-* **Automation Tool:** Selenium WebDriver 4.39.0
-* **Test Framework:** TestNG 7.11.0
-* **Build Tool:** Maven
-* **Browser:** Google Chrome
-* **Design Pattern:** Page Object Model (POM)
-* **IDE:** IntelliJ IDEA
+- **Language:** Java 21
+- **Automation Tool:** Selenium WebDriver 4.39.0
+- **Test Framework:** Cucumber 6.11.0 with JUnit
+- **Build Tool:** Maven
+- **Browser:** Google Chrome
+- **Design Pattern:** Page Object Model (POM)
+- **IDE:** IntelliJ IDEA
 
 ---
 
 ## 📁 Project Structure
 
 ```
+
 selenium-login-automation
 │
-├── src/test/java
+├── src/main/java
 │   ├── base
-│   │   └── basepage.java
+│   │   └── basepage.java              # Browser setup and teardown
 │   ├── pages
-│   │   └── LoginPage.java
-│   └── tests
-│       └── ValidLoginTest.java
+│   │   └── LoginPage.java             # Page Object Model classes
+│
+├── src/test/java
+│   ├── stepdefinitions
+│   │   └── LoginSteps.java            # Login Stepdefinitions
+│   ├── TestRunner                
+│       └── BDDrunner.java             #TestRunner file
+│   ├── tests
+│       └── LoginTest.java             #TestNG execution
+├── src/test/resources
+│   ├── features
+│   │   └── Login.feature              # Cucumber feature files
 │
 ├── pom.xml
 └── README.md
-```
+
+````
 
 ---
 
 ## 🧩 Framework Components
 
-### 1️⃣ Base Page (`basepage.java`)
+### 1️⃣ BasePage (`basepage.java`)
 
-Responsible for **browser lifecycle management**.
-
-**Responsibilities:**
-
-* Initialize ChromeDriver
-* Maximize browser window
-* Launch application URL
-* Provide explicit wait utility
-* Close browser after test execution
-
-```java
-public class basepage {
-    public WebDriver driver;
-    String WebsiteURL = "https://the-internet.herokuapp.com/login";
-
-    public basepage() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-}
-```
-
----
+- Manages WebDriver lifecycle using WebDriverManager
+- Initializes ChromeDriver, maximizes window, and launches the application URL
+- Provides method to close the browser after test execution
 
 ### 2️⃣ Page Object (`LoginPage.java`)
 
-Encapsulates **locators and actions** related to the Login page.
+- Encapsulates locators and methods for interacting with the login page
+- Methods include entering username, password, clicking login, and fetching messages
 
-**Features:**
+### 3️⃣ Step Definitions (`LoginSteps.java`)
 
-* Uses `By` locators
-* Explicit waits (`WebDriverWait`)
-* Methods for interacting with UI elements
+- Implements the Cucumber step definitions corresponding to feature file steps
 
-**Actions Implemented:**
+### 4️⃣ Test Runner (`BDDrunner.java`)
 
-* Enter username
-* Enter password
-* Click login button
-* Fetch success message
-* Fetch error message
-
----
-
-### 3️⃣ Test Class (`ValidLoginTest.java`)
-
-Contains **TestNG test cases** with proper setup and teardown.
-
-**Annotations Used:**
-
-* `@BeforeMethod` – browser setup
-* `@Test` – test execution
-* `@AfterMethod` – browser cleanup
+- Configures and runs Cucumber tests with TestNG
+- Specifies feature file location, step definitions package, and report generation
 
 ---
 
 ## ✅ Test Scenarios Covered
 
-### 🔹 Valid Login Test
-
-* Enter valid username and password
-* Click login button
-* Verify redirection to secure page
-* Validate success message
-
-### 🔹 Invalid Login Test
-
-* Enter incorrect username and password
-* click on login button
-* Verify error message
-* Ensure user remains on login page
-
-### 🔹 Empty Fields Test
-
-* Click login without entering credentials
-* Validate error message
-* Ensure user remains on login page
+- **Valid Login:** User logs in with valid credentials and verifies success
+- **Invalid Login:** User logs in with incorrect credentials and verifies error message
+- **Empty Fields:** User attempts login without credentials and verifies error message
 
 ---
 
 ## ▶️ How to Run the Tests
 
-### 1️⃣ Prerequisites
+### Prerequisites
 
-* Java 21 installed
-* Maven installed
-* Chrome browser installed
+- Java 21 installed and configured
+- Maven installed and configured
+- Chrome browser installed
 
-### 3️⃣ Run Tests Using Maven
+### Running Tests
 
-You can also run tests directly from **IntelliJ IDEA** by right-clicking the test class and selecting **Run**.
-
-
-## ⚠️ Common Issues
-
-### ❌ NoSuchSessionException: invalid session id
-
-**Cause:** Reusing WebDriver after closing the browser.
-
-**Fix:**
-
-* Initialize WebDriver in `@BeforeMethod`
-* Close browser in `@AfterMethod`
-* Use a fresh browser session for each test
-
-
-## 🌟 Best Practices Followed
-
-* Page Object Model (POM)
-* Explicit waits for stability
-* Independent test execution
-* Externalized test data (CSV)
-* Maven dependency management
-
-
+1. Import the project into IntelliJ IDEA
+2. Run the `BDDrunner.java` class as a TestNG test
