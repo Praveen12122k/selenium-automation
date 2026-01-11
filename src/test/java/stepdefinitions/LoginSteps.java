@@ -29,7 +29,8 @@ public class LoginSteps {
         System.out.println("Successfully Entered Credentials");
     }
     @And("Click on login button")
-    public void clikcbtn(){loginPage.Clickloginbtn();}
+    public void clikcbtn(){loginPage.Clickloginbtn();
+        System.out.println("Successfully Clicked Login Button");}
 
     @Then("User should see login result {string}")
     public void login_result(String result){
