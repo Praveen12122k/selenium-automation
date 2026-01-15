@@ -39,6 +39,7 @@ public class LoginSteps {
             Assert.assertTrue(loginPage.Successmsg().isDisplayed(), "Success message is not displayed");
             System.out.println(loginPage.Successmsg().getText());
             base.tearDown();
+            System.out.println("Successful Login");
         } else {
             Assert.assertTrue(loginPage.Invalidmsg().isDisplayed(), "Error message is not displayed");
             // Optionally verify the exact error message text, e.g.
